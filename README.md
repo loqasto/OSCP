@@ -41,6 +41,12 @@
 
     └─# hashcat -m 13400 keepass_hash /usr/share/wordlists/rockyou.txt -r /usr/share/hashcat/rules/rockyou-30000.rule --force
 
+### id_rsa
+
+  Para sacar el hash de una clave privada id_rsa:
+
+    ssh2john id_rsa > ssh.hash
+
   Para pasar las reglas a JTR, tenemos que modificar el archivo custom.rule:
 
     └─# cat custom.rule 
