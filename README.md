@@ -40,3 +40,15 @@
   Lanzamos hashcat con la regla /rockyou-30000.rule para crackear la contraseña:
 
     └─# hashcat -m 13400 keepass_hash /usr/share/wordlists/rockyou.txt -r /usr/share/hashcat/rules/rockyou-30000.rule --force
+
+  Para pasar las reglas a JTR, tenemos que modificar el archivo custom.rule:
+
+    └─# cat custom.rule 
+    [List.Rules:sshRules]
+    c $1 $3 $7 $@
+    c $1 $3 $7 $$
+    c $1 $3 $7 $#
+
+  Y corremos JTR:
+
+    └─# john --wordlist=ssh.passwords --rules=sshRules ssh_hash
