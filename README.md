@@ -55,6 +55,8 @@
     c $1 $3 $7 $$
     c $1 $3 $7 $#
 
+    sh -c 'cat custom.rule >> /etc/john/john.conf'
+
   Y corremos JTR:
 
     └─# john --wordlist=ssh.passwords --rules=sshRules ssh_hash
