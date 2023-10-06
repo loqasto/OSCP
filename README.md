@@ -78,3 +78,13 @@
   Finalmente, para obtener los hashes:
 
     lsadump::sam
+
+Una vez tenemos el hash, buscamos en hashcat el modo de crackeo:
+
+![image](https://github.com/loqasto/OSCP/assets/111526713/f9b028e5-0d0e-4e5a-a8f0-1156c3ac3d84)
+
+En este caso, el modo es 1000, por lo tanto:
+
+    └─# hashcat -m 1000 nelly.hash /usr/share/wordlists/rockyou.txt
+
+Y obtenemos la contraseña en texto plano.
