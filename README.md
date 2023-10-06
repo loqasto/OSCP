@@ -1,5 +1,5 @@
 
-### Password attacks
+## Password attacks
 
   Crear una regla para hashcat que añada '1@3$5' al final de cada contraseña:
 
@@ -22,3 +22,9 @@
   Conseguimos la contraseña:
 
     19adc0e8921336d08502c039dc297ff8:<REDACTED>
+
+  Reglas de contraseñas:
+
+    https://hashcat.net/wiki/doku.php?id=rule_based_attack
+
+### Keepass
