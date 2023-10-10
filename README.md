@@ -188,6 +188,10 @@ Obtener hash NTLM desde un formulario de carga de archivos:
 
     x86_64-w64-mingw32-gcc adduser.c -o adduser.exe
 
+  Subimos el nuevo binario a la máquina víctima y lo sustituimos por el original aprovechando los permisos full.
+
+  Utilizando el comando 'net stop' y 'net start' podemos parar y arrancar el servicio, y una vez arrancado, tendremos permisos de Administrador en la máquina.
+
 ## Vulnerabilidades conocidas
 
 Apache HTTP Server 2.4.49 - Path traversal
