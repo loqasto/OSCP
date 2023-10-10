@@ -149,6 +149,9 @@ Obtener hash NTLM desde un formulario de carga de archivos:
 
   ![image](https://github.com/loqasto/OSCP/assets/111526713/473ec30f-1b0c-4063-8ffd-d3a27518903c)
 
+## Windows Privilege Escalation
+
+  
 
 ## Vulnerabilidades conocidas
 
