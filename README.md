@@ -151,6 +151,20 @@ Obtener hash NTLM desde un formulario de carga de archivos:
 
 ## Windows Privilege Escalation
 
+  ### Service Hijacking
+
+  Encontramos servicios corriendo:
+
+    Get-CimInstance -ClassName win32_service | Select Name,State,PathName | Where-Object {$_.State -like 'Running'}
+
+  Enumeramos permisos a partir de esta tabla:
+
+    Mask | Permissions
+    F 	 | Full access
+    M 	 | Modify access
+    RX 	 | Read and execute access
+    R 	 | Read-only access
+    W 	 | Write-only access
   
 
 ## Vulnerabilidades conocidas
