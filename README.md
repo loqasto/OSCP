@@ -206,6 +206,14 @@ Obtener hash NTLM desde un formulario de carga de archivos:
 
     shutdown /r /t 0 
 
+  Podemos utilizar también la herramienta PowerUp.ps1. Para ello la subimos a la máquina víctima y ejecutamos:
+
+    powershell -ep bypass
+
+    Import-Module .\PowerUp.ps1
+
+    Get-ModifiableServiceFile
+
 ## Vulnerabilidades conocidas
 
 Apache HTTP Server 2.4.49 - Path traversal
