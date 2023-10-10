@@ -192,6 +192,20 @@ Obtener hash NTLM desde un formulario de carga de archivos:
 
   Utilizando el comando 'net stop' y 'net start' podemos parar y arrancar el servicio, y una vez arrancado, tendremos permisos de Administrador en la máquina.
 
+  Si no nos deja parar y arrancar, comprobamos si el servicio se puede modificar manualmente:
+
+    PS C:\Users\dave> Get-CimInstance -ClassName win32_service | Select Name, StartMode | Where-Object {$_.Name -like 'mysql'}
+  
+    Name  StartMode
+    ----  ---------
+    mysql Auto  
+
+  En este caso, podemos ver si entre nuestros privilegios se encuentra el 'SeShutdownPrivilege' con whoami /priv. 
+
+  Si es así, podemos reiniciar la máquina y el comando se ejecutará en el reinicio gracias al path hijacking que hemos realizado.
+
+    shutdown /r /t 0 
+
 ## Vulnerabilidades conocidas
 
 Apache HTTP Server 2.4.49 - Path traversal
