@@ -159,12 +159,12 @@ Obtener hash NTLM desde un formulario de carga de archivos:
 
   Enumeramos permisos a partir de esta tabla:
 
-    Mask | Permissions
-    F 	 | Full access
-    M 	 | Modify access
-    RX 	 | Read and execute access
-    R 	 | Read-only access
-    W 	 | Write-only access
+    Mask 	  Permissions
+    F 	  Full access
+    M 	  Modify access
+    RX 	  Read and execute access
+    R 	  Read-only access
+    W 	  Write-only access
   
 
 ## Vulnerabilidades conocidas
