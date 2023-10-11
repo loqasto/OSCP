@@ -297,6 +297,28 @@ Obtener hash NTLM desde un formulario de carga de archivos:
 
   Y lo subimos al path vulnerable. Ejecutamos 'Restar-Service service_name' y el comando dentro de nuestro binario malicioso se habrá ejecutado.
 
+## Linux Privilege Escalation
+
+  Encontrar jobs que se ejecutan en crontab:
+
+    grep "CRON" /var/log/syslog
+
+  Buscar por procesos que se ejecutan en el sistema:
+
+    watch -n 1 "ps -aux | grep pass"
+
+  Reglas de iptable:
+
+    cat /etc/iptables/rules.v4
+
+  Ficheros con permisos de escritura con el usuario actual:
+
+    find / -writable -type d 2>/dev/null
+
+  Paquetes instalados en el sistema:
+
+    dpkg -l
+
 ## Vulnerabilidades conocidas
 
 Apache HTTP Server 2.4.49 - Path traversal
