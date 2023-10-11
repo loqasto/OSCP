@@ -319,6 +319,14 @@ Obtener hash NTLM desde un formulario de carga de archivos:
 
     dpkg -l
 
+  Comprobar montajes:
+
+    cat /etc/fstab 
+
+  Capturar tráfico dentro de la red:
+
+    sudo tcpdump -i lo -A | grep "pass"
+
 ## Vulnerabilidades conocidas
 
 Apache HTTP Server 2.4.49 - Path traversal
