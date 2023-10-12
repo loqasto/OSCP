@@ -335,6 +335,31 @@ Obtener hash NTLM desde un formulario de carga de archivos:
     w00t
     id
 
+## Port Fordwarding y tunneling
+
+  Hemos conseguido acceso a una máquina dentro de una red, y vemos que esa máquina tiene otra interfaz, es decir, pertenece a otra red aparte de la nuestra.
+
+   ![image](https://github.com/loqasto/OSCP/assets/111526713/fdbc45e3-1e90-4c61-a922-249b292c1490)
+
+  Enumerando la máquina, encontramos en el fichero de configuración de Attlasian la siguiente información:
+
+    cat /var/atlassian/application-data/confluence/confluence.cfg.xml
+    ...
+    <property name="hibernate.connection.password">D@t4basePassw0rd!</property>
+    <property name="hibernate.connection.url">jdbc:postgresql://10.4.50.215:5432/confluence</property>
+    <property name="hibernate.connection.username">postgres</property>
+    ...
+
+  Por lo que tenemos que traernos el puerto '5432' de la máquina 10.4.191.215 a nuestro local para poder acceder, ya que de momento no llegamos a esa máquina.
+
+  Para ello, utilizamos por ejemplo 'socat':
+
+    socat TCP-LISTEN:2345,fork TCP:10.4.191.215:5432
+
+  Así, el puerto remoto '5432' de 10.4.192.215 se tuneliza al 2345 de la máquina a la que tenemos acceso. Por lo tanto, podemos conectarnos a psql utilizando las credenciales que encontramos:
+
+    psql -h 192.168.191.63 -U postgres -p 2345
+
 ## Vulnerabilidades conocidas
 
 Apache HTTP Server 2.4.49 - Path traversal
