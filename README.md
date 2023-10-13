@@ -360,6 +360,12 @@ Obtener hash NTLM desde un formulario de carga de archivos:
 
     psql -h 192.168.191.63 -U postgres -p 2345
 
+  SSH Local Port Fordwarding
+
+  El puerto local 4455 se convierte en el puerto remoto 445 de 172.16.50.217, a través de la conexión con 'database_admin' a 10.4.50.215
+
+    ssh -N -L 0.0.0.0:4455:172.16.50.217:445 database_admin@10.4.50.215
+
 ## Vulnerabilidades conocidas
 
 Apache HTTP Server 2.4.49 - Path traversal
