@@ -366,6 +366,24 @@ Obtener hash NTLM desde un formulario de carga de archivos:
 
     ssh -N -L 0.0.0.0:4455:172.16.50.217:445 database_admin@10.4.50.215
 
+  SSH Dynamic Port Fordwarding
+
+    ssh -N -D 0.0.0.0:9999 database_admin@10.4.50.215
+
+  Para que funcione, tenemos que editar el archivo /etc/proxychains.conf:
+
+    [ProxyList]
+    # add proxy here ...
+    # meanwile
+    # defaults set to "tor"
+    #socks4         127.0.0.1 9050
+    socks5 192.168.247.63 8888
+    socks5 127.0.0.1 9999
+    socks5 127.0.0.1 1080
+    socks5 127.0.0.1 9050
+
+  Y ejecutar comandos a través de proxychains.
+
 ## Vulnerabilidades conocidas
 
 Apache HTTP Server 2.4.49 - Path traversal
