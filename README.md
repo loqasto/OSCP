@@ -414,6 +414,20 @@ plink.exe
 
     xfreerdp /u:rdp_admin /p:P@ssw0rd! /v:127.0.0.1:9833
 
+netsh
+
+  Crear una regla en Windows que nos permita traernos el puerto remoto 22 a nuestro puerto local 2222:
+
+    netsh interface portproxy add v4tov4 listenport=2222 listenaddress=192.168.50.64 connectport=22 connectaddress=10.4.50.215
+
+  Añadimos la regla al firewall como excepción:
+
+    netsh advfirewall firewall add rule name="port_forward_ssh_2222" protocol=TCP dir=in localip=192.168.50.64 localport=2222 action=allow
+
+  Podemos conectarnos al puerto remoto desde el puerto local:
+
+    ssh database_admin@192.168.50.64 -p2222
+
 ## Vulnerabilidades conocidas
 
 Apache HTTP Server 2.4.49 - Path traversal
