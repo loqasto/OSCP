@@ -428,6 +428,14 @@ netsh
 
     ssh database_admin@192.168.50.64 -p2222
 
+proxychains
+
+    └─# proxychains ssh database_admin@10.4.243.215
+
+  Alternativa a proxychains para conectarse por ssh:
+
+    ssh -o ProxyCommand='ncat --proxy-type socks5 --proxy 127.0.0.1:1080 %h %p' database_admin@10.4.50.215
+
 ## Vulnerabilidades conocidas
 
 Apache HTTP Server 2.4.49 - Path traversal
