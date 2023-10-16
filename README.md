@@ -538,6 +538,11 @@ dnscat2
 
     Get-NetUser
 
+  Información del sistema y DNS:
+
+    Get-NetComputer
+    Get-NetComputer | select operatingsystem,dnshostname
+
 ## Vulnerabilidades conocidas
 
 Apache HTTP Server 2.4.49 - Path traversal
