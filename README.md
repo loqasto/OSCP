@@ -600,7 +600,7 @@ dnscat2
   
  Ver compartidos:
 
-    Find-DomainShare
+    Find-DomainShare -CheckShareAccess
 
  Listar uno de ellos:
 
