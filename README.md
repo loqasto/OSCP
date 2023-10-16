@@ -510,6 +510,24 @@ dnscat2
 
     }
 
+  Podemos buscar por grupos:
+
+    LDAPSearch -LDAPQuery "(objectclass=group)"
+
+  Grupos y miembros de cada grupo:
+
+    foreach ($group in $(LDAPSearch -LDAPQuery "(objectCategory=group)")) {
+    >> $group.properties | select {$_.cn}, {$_.member}
+    >> }
+
+  Grupo específico:
+
+    $sales = LDAPSearch -LDAPQuery "(&(objectCategory=group)(cn=Sales Department))"
+
+  Consultar grupo:
+
+    $sales.properties.member
+
 ## Vulnerabilidades conocidas
 
 Apache HTTP Server 2.4.49 - Path traversal
