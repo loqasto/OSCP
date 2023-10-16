@@ -528,6 +528,16 @@ dnscat2
 
     $sales.properties.member
 
+  ### PowerView.ps1
+
+   Información del dominio:
+
+     Get-NetDomain
+
+   Información de usuarios:
+
+    Get-NetUser
+
 ## Vulnerabilidades conocidas
 
 Apache HTTP Server 2.4.49 - Path traversal
