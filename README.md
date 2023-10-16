@@ -564,6 +564,43 @@ dnscat2
 
     nslookup.exe web04.corp.com
 
+  ### Permisos en Active Directory:
+
+    GenericAll: Full permissions on object
+    GenericWrite: Edit certain attributes on the object
+    WriteOwner: Change ownership of the object
+    WriteDACL: Edit ACE's applied to object
+    AllExtendedRights: Change password, reset password, etc.
+    ForceChangePassword: Password change for object
+    Self (Self-Membership): Add ourselves to for example a group
+
+  Enumerar para un usuario en concreto:
+
+    Get-ObjectAcl -Identity stephanie
+
+  Convertir SID a nombre:
+
+    Convert-SidToName S-1-5-21-1987370270-658905905-1781884369-1104
+
+  Un parámetro a resaltar es el siguiente, ya que nos indica si tenemos algún permiso especial sobre un objeto del dominio:
+
+    ActiveDirectoryRights  : ReadProperty
+
+  El objeto del dominio al que hace referencia se define en este otro parámetro:
+
+    SecurityIdentifier     : S-1-5-21-1987370270-658905905-1781884369-553
+
+ Ver qué objetos tiene permiso "Generic All" sobre un grupo:
+
+     Get-ObjectAcl -Identity "Management Department" | ? {$_.ActiveDirectoryRights -eq "GenericAll"} | select SecurityIdentifier,ActiveDirectoryRights
+
+ Los convertimos a nombre legible:
+
+     "S-1-5-21-1987370270-658905905-1781884369-512","S-1-5-21-1987370270-658905905-1781884369-1104","S-1-5-32-548","S-1-5-18","S-1-5-21-1987370270-658905905-1781884369-519" | Convert-SidToName
+  
+
+
+
 ## Vulnerabilidades conocidas
 
 Apache HTTP Server 2.4.49 - Path traversal
