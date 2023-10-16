@@ -555,6 +555,15 @@ dnscat2
 
     .\PsLoggedon.exe \\files04
 
+  Enumerar SPN del dominio:
+
+    Get-NetUser -SPN | select samaccountname,serviceprincipalname
+    setspn -L iis_service
+
+  Resolver nombre:
+
+    nslookup.exe web04.corp.com
+
 ## Vulnerabilidades conocidas
 
 Apache HTTP Server 2.4.49 - Path traversal
