@@ -543,6 +543,18 @@ dnscat2
     Get-NetComputer
     Get-NetComputer | select operatingsystem,dnshostname
 
+  Ver si nuestro usuario tiene derechos de Administrador en alguna computadora del dominio:
+
+    Find-LocalAdminAccess
+
+  Comprobar si hay usuarios conectados a una máquina del dominio:
+
+    Get-NetSession -ComputerName files04
+
+  Tambien podemos ejecutar el siguiente binario:
+
+    .\PsLoggedon.exe \\files04
+
 ## Vulnerabilidades conocidas
 
 Apache HTTP Server 2.4.49 - Path traversal
