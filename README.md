@@ -462,6 +462,22 @@ dnscat2
 
     smbclient -p 4455 -L //127.0.0.1 -U hr_admin --password=Welcome1234
 
+## Active Directory
+
+ ### LDAP
+
+   Para enumerar LDAP, necesitamos la información siguiente:
+
+     LDAP://HostName[:PortNumber][/DistinguishedName]
+
+     CN=Stephanie,CN=Users,DC=corp,DC=com
+
+  Para obtener el nombre del dominio principal y construir nuestro comando:
+
+    [System.DirectoryServices.ActiveDirectory.Domain]::GetCurrentDomain()
+
+    PdcRoleOwner : DC1.corp.com
+
 ## Vulnerabilidades conocidas
 
 Apache HTTP Server 2.4.49 - Path traversal
