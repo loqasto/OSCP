@@ -478,6 +478,10 @@ dnscat2
 
     PdcRoleOwner : DC1.corp.com
 
+  El comando quedaría así:
+
+    LDAP://DC1.corp.com/DC=corp,DC=com
+
 ## Vulnerabilidades conocidas
 
 Apache HTTP Server 2.4.49 - Path traversal
