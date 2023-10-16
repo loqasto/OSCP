@@ -482,6 +482,34 @@ dnscat2
 
     LDAP://DC1.corp.com/DC=corp,DC=com
 
+  Enumerar grupos:
+
+    foreach ($group in $(LDAPSearch -LDAPQuery "(objectCategory=group)")) {
+    >> $group.properties | select {$_.cn}, {$_.member}
+    >> }
+
+  Usuarios que pertenecen al grupo:
+
+    $sales = LDAPSearch -LDAPQuery "(&(objectCategory=group)(cn=Sales Department))"
+
+  Script para buscar objetos en un entorno de AD:
+
+    function LDAPSearch {
+    param (
+        [string]$LDAPQuery
+    )
+
+    $PDC = [System.DirectoryServices.ActiveDirectory.Domain]::GetCurrentDomain().PdcRoleOwner.Name
+    $DistinguishedName = ([adsi]'').distinguishedName
+
+    $DirectoryEntry = New-Object System.DirectoryServices.DirectoryEntry("LDAP://$PDC/$DistinguishedName")
+
+    $DirectorySearcher = New-Object System.DirectoryServices.DirectorySearcher($DirectoryEntry, $LDAPQuery)
+
+    return $DirectorySearcher.FindAll()
+
+    }
+
 ## Vulnerabilidades conocidas
 
 Apache HTTP Server 2.4.49 - Path traversal
